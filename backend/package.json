@@ -4,7 +4,9 @@
   "description": "backend testing",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+		"build:ui": "rm -rf dest && cd ../frontend/ && npm run build && cp -r dist ../backend",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push",
+		"start": "node index.js",
     "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
