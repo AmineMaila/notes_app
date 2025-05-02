@@ -2,21 +2,6 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const app = express()
-const Ajv = require('ajv')
-const ajv = new Ajv()
-
-const schema = {
-	type: 'object',
-	properties: {
-		id: {type: 'string'},
-		content: {type: 'string'},
-		important: {type: 'boolean'}
-	},
-	required: ['content'],
-	additionalProperties: false
-}
-
-const validate = ajv.compile(schema)
 
 let notes = [
 	{
@@ -38,11 +23,8 @@ let notes = [
 
 app.use(express.json())
 app.use(morgan('tiny'))
-app.use(cors({
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE']
-}));
-
+app.use(cors());
+app.use(express.static())
 
 app.get('/', (req, res) => {
 	res.send('<h1>Hello World!</h1>')
@@ -94,14 +76,14 @@ app.post('/api/notes', (req, res) => {
 	res.json(note)
 })
 
-app.put('/api/notes/:id', (req, res) => {
-	const body = req.body
+// app.put('/api/notes/:id', (req, res) => {
+// 	const body = req.body
 
-	if (!validate(body))
-		console.log('non valid')
-	else
-		console.log('valid')
-})
+// 	if (!validate(body))
+// 		console.log('non valid')
+// 	else
+// 		console.log('valid')
+// })
 
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
