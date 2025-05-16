@@ -1,0 +1,6 @@
+PUT http://localhost:3001/api/notes/68188b53ac12008ea7df4d70
+Content-Type: application/json
+
+{
+	"content": "Hell world"
+}
